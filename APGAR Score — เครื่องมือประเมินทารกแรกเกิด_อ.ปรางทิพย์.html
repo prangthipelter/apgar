@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)file:///C:/Users/hp/Downloads/apgar_score_tool.html -->
+<html lang="th"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APGAR Score — เครื่องมือประเมินทารกแรกเกิด</title>
+<link href="./APGAR Score — เครื่องมือประเมินทารกแรกเกิด_อ.ปรางทิพย์_files/css2" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F5F0;
+    --surface: #FFFFFF;
+    --surface2: #F0EDE8;
+    --accent: #1A6B4A;
+    --accent-light: #E8F5EE;
+    --accent-mid: #2D9B6A;
+    --warn: #B45309;
+    --warn-light: #FEF3C7;
+    --danger: #991B1B;
+    --danger-light: #FEE2E2;
+    --text-primary: #1C1917;
+    --text-secondary: #78716C;
+    --text-muted: #A8A29E;
+    --border: #E7E2DC;
+    --border-strong: #C4BDB5;
+    --radius: 10px;
+    --radius-lg: 16px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  }
+
+  body {
+    font-family: 'IBM Plex Sans Thai', 'Sarabun', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  .page-header {
+    background: var(--accent);
+    color: white;
+    padding: 2rem 1.5rem 1.5rem;
+    text-align: center;
+  }
+  .page-header .tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.9);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 0.75rem;
+  }
+  .page-header h1 {
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
+  }
+  .page-header p {
+    font-size: 14px;
+    opacity: 0.8;
+    font-weight: 300;
+  }
+
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  /* Timing selector */
+  .timing-section {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    margin-bottom: 1.25rem;
+  }
+  .timing-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .timing-btns {
+    display: flex;
+    gap: 8px;
+  }
+  .timing-btn {
+    flex: 1;
+    padding: 8px 6px;
+    border: 1.5px solid var(--border);
+    background: var(--surface2);
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    transition: all 0.15s;
+    text-align: center;
+  }
+  .timing-btn:hover { border-color: var(--accent-mid); color: var(--accent); }
+  .timing-btn.active {
+    background: var(--accent-light);
+    border-color: var(--accent);
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* Criteria cards */
+  .criteria-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 1.25rem;
+  }
+
+  .criterion-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .criterion-card.scored { box-shadow: var(--shadow-md); }
+
+  .criterion-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 1.25rem 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .criterion-letter {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1.5px solid var(--border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-primary);
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .criterion-card.scored .criterion-letter {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+  .criterion-info { flex: 1; }
+  .criterion-name { font-size: 15px; font-weight: 500; color: var(--text-primary); }
+  .criterion-th { font-size: 12px; color: var(--text-secondary); margin-top: 1px; }
+  .criterion-selected-badge {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--accent-light);
+    color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .criterion-card.scored .criterion-selected-badge { opacity: 1; }
+
+  .score-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+  }
+  .score-opt {
+    padding: 12px 10px;
+    border: none;
+    border-right: 1px solid var(--border);
+    background: transparent;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+    transition: background 0.15s;
+    position: relative;
+  }
+  .score-opt:last-child { border-right: none; }
+  .score-opt:hover { background: var(--surface2); }
+  .score-opt.selected { background: var(--accent-light); }
+  .score-opt.selected::after {
+    content: '';
+    position: absolute;
+    top: 8px; right: 8px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .score-num {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .score-opt.selected .score-num { color: var(--accent); }
+  .score-desc {
+    font-size: 11.5px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    display: block;
+  }
+  .score-opt.selected .score-desc { color: var(--accent); }
+
+  /* Result panel */
+  .result-panel {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+  }
+  .result-top {
+    padding: 1.5rem 1.25rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .result-score-big {
+    font-size: 56px;
+    font-weight: 600;
+    line-height: 1;
+    min-width: 72px;
+    text-align: center;
+    color: var(--text-muted);
+    transition: color 0.3s;
+  }
+  .result-score-big.normal { color: var(--accent); }
+  .result-score-big.warn { color: var(--warn); }
+  .result-score-big.danger { color: var(--danger); }
+
+  .result-info { flex: 1; }
+  .result-status {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .result-status.normal { color: var(--accent); }
+  .result-status.warn { color: var(--warn); }
+  .result-status.danger { color: var(--danger); }
+  .result-action-text {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .result-timing {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .result-breakdown {
+    padding: 1rem 1.25rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+  }
+  .breakdown-item {
+    text-align: center;
+    padding: 8px 4px;
+    background: var(--surface2);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .breakdown-letter { font-size: 13px; font-weight: 600; color: var(--text-secondary); display: block; }
+  .breakdown-val {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-muted);
+    display: block;
+    transition: color 0.2s;
+  }
+  .breakdown-val.set { color: var(--accent); }
+
+  /* Legend */
+  .legend-section {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .legend-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .legend-rows { display: flex; flex-direction: column; gap: 8px; }
+  .legend-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .legend-row.normal { background: var(--accent-light); border-color: #A7D8BF; }
+  .legend-row.warn { background: var(--warn-light); border-color: #FCD34D; }
+  .legend-row.danger { background: var(--danger-light); border-color: #FCA5A5; }
+  .legend-score {
+    font-size: 18px;
+    font-weight: 600;
+    min-width: 44px;
+  }
+  .legend-row.normal .legend-score { color: var(--accent); }
+  .legend-row.warn .legend-score { color: var(--warn); }
+  .legend-row.danger .legend-score { color: var(--danger); }
+  .legend-text { flex: 1; }
+  .legend-label {
+    font-size: 13px;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .legend-row.normal .legend-label { color: var(--accent); }
+  .legend-row.warn .legend-label { color: var(--warn); }
+  .legend-row.danger .legend-label { color: var(--danger); }
+  .legend-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+
+  /* Reset */
+  .reset-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  .btn-reset {
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--text-secondary);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 8px 20px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-reset:hover { background: var(--surface2); border-color: var(--border-strong); }
+
+  .footer {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    font-size: 12px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 480px) {
+    .page-header h1 { font-size: 22px; }
+    .score-num { font-size: 18px; }
+    .result-score-big { font-size: 44px; }
+    .result-breakdown { grid-template-columns: repeat(5, 1fr); gap: 4px; }
+    .breakdown-val { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="tag">Neonatal Assessment</div>
+  <h1>APGAR Score</h1>
+  <p>เครื่องมือประเมินสภาพทารกแรกเกิด — วิชาการพยาบาลผดุงครรภ์</p>
+</div>
+
+<div class="container">
+
+  <!-- Timing -->
+  <div class="timing-section">
+    <div class="timing-label">เวลาที่ประเมิน</div>
+    <div class="timing-btns">
+      <button class="timing-btn active" onclick="setTiming(this,&#39;นาทีที่ 1 หลังคลอด&#39;)">นาทีที่ 1</button>
+      <button class="timing-btn" onclick="setTiming(this,&#39;นาทีที่ 5 หลังคลอด&#39;)">นาทีที่ 5</button>
+      <button class="timing-btn" onclick="setTiming(this,&#39;นาทีที่ 10 หลังคลอด&#39;)">นาทีที่ 10</button>
+    </div>
+  </div>
+
+  <!-- Criteria -->
+  <div class="criteria-grid">
+
+    <div class="criterion-card" id="card-a">
+      <div class="criterion-header">
+        <div class="criterion-letter" id="letter-a">A</div>
+        <div class="criterion-info">
+          <div class="criterion-name">Appearance</div>
+          <div class="criterion-th">สีผิวทารก</div>
+        </div>
+        <div class="criterion-selected-badge" id="badge-a">—</div>
+      </div>
+      <div class="score-options">
+        <button class="score-opt" onclick="select(this,&#39;a&#39;,0)">
+          <span class="score-num">0</span>
+          <span class="score-desc">ซีดหรือเขียวทั้งตัว</span>
+        </button>
+        <button class="score-opt" onclick="select(this,&#39;a&#39;,1)">
+          <span class="score-num">1</span>
+          <span class="score-desc">ตัวชมพู มือและเท้าเขียว</span>
+        </button>
+        <button class="score-opt" onclick="select(this,&#39;a&#39;,2)">
+          <span class="score-num">2</span>
+          <span class="score-desc">ชมพูสม่ำเสมอทั้งตัว</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="criterion-card" id="card-p">
+      <div class="criterion-header">
+        <div class="criterion-letter" id="letter-p">P</div>
+        <div class="criterion-info">
+          <div class="criterion-name">Pulse</div>
+          <div class="criterion-th">อัตราการเต้นของหัวใจ</div>
+        </div>
+        <div class="criterion-selected-badge" id="badge-p">—</div>
+      </div>
+      <div class="score-options">
+        <button class="score-opt" onclick="select(this,&#39;p&#39;,0)">
+          <span class="score-num">0</span>
+          <span class="score-desc">ไม่มีชีพจร</span>
+        </button>
+        <button class="score-opt" onclick="select(this,&#39;p&#39;,1)">
+          <span class="score-num">1</span>
+          <span class="score-desc">น้อยกว่า 100 ครั้ง/นาที</span>
+        </button>
+        <button class="score-opt" onclick="select(this,&#39;p&#39;,2)">
+          <span class="score-num">2</span>
+          <span class="score-desc">มากกว่า 100 ครั้ง/นาที</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="criterion-card" id="card-g">
+      <div class="criterion-header">
+        <div class="criterion-letter" id="letter-g">G</div>
+        <div class="criterion-info">
+          <div class="criterion-name">Grimace</div>
+          <div class="criterion-th">ปฏิกิริยาต่อการกระตุ้น</div>
+        </div>
+        <div class="criterion-selected-badge" id="badge-g">—</div>
+      </div>
+      <div class="score-options">
+        <button class="score-opt" onclick="select(this,&#39;g&#39;,0)">
+          <span class="score-num">0</span>
+          <span class="score-desc">ไม่มีปฏิกิริยาตอบสนอง</span>
+        </button>
+        <button class="score-opt" onclick="select(this,&#39;g&#39;,1)">
+          <span class="score-num">1</span>
+          <span class="score-desc">เหยเกหน้าเล็กน้อย</span>
+        </button>
+        <button class="score-opt" onclick="select(this,&#39;g&#39;,2)">
+          <span class="score-num">2</span>
+          <span class="score-desc">ไอ จาม หรือร้องไห้</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="criterion-card" id="card-ac">
+      <div class="criterion-header">
+        <div class="criterion-letter" id="letter-ac">A</div>
+        <div class="criterion-info">
+          <div class="criterion-name">Activity</div>
+          <div class="criterion-th">ความตึงตัวของกล้ามเนื้อ</div>
+        </div>
+        <div class="criterion-selected-badge" id="badge-ac">—</div>
+      </div>
+      <div class="score-options">
+        <button class="score-opt" onclick="select(this,&#39;ac&#39;,0)">
+          <span class="score-num">0</span>
+          <span class="score-desc">อ่อนปวกเปียก ไม่เคลื่อนไหว</span>
+        </button>
+        <button class="score-opt" onclick="select(this,&#39;ac&#39;,1)">
+          <span class="score-num">1</span>
+          <span class="score-desc">งอแขนขาเล็กน้อย</span>
+        </button>
+        <button class="score-opt" onclick="select(this,&#39;ac&#39;,2)">
+          <span class="score-num">2</span>
+          <span class="score-desc">เคลื่อนไหวแขนขาได้ดี</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="criterion-card" id="card-r">
+      <div class="criterion-header">
+        <div class="criterion-letter" id="letter-r">R</div>
+        <div class="criterion-info">
+          <div class="criterion-name">Respiration</div>
+          <div class="criterion-th">การหายใจ</div>
+        </div>
+        <div class="criterion-selected-badge" id="badge-r">—</div>
+      </div>
+      <div class="score-options">
+        <button class="score-opt" onclick="select(this,&#39;r&#39;,0)">
+          <span class="score-num">0</span>
+          <span class="score-desc">ไม่มีการหายใจ</span>
+        </button>
+        <button class="score-opt" onclick="select(this,&#39;r&#39;,1)">
+          <span class="score-num">1</span>
+          <span class="score-desc">ช้า ไม่สม่ำเสมอ</span>
+        </button>
+        <button class="score-opt" onclick="select(this,&#39;r&#39;,2)">
+          <span class="score-num">2</span>
+          <span class="score-desc">สม่ำเสมอ ร้องเสียงดัง</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Result -->
+  <div class="result-panel">
+    <div class="result-top">
+      <div class="result-score-big" id="total-display">—</div>
+      <div class="result-info">
+        <div class="result-status" id="result-status">เลือกคะแนนทุกด้านเพื่อดูผล</div>
+        <div class="result-action-text" id="result-action">กดเลือกคะแนน 0–2 ในแต่ละองค์ประกอบด้านบน</div>
+        <div class="result-timing" id="result-timing"></div>
+      </div>
+    </div>
+    <div class="result-breakdown">
+      <div class="breakdown-item">
+        <span class="breakdown-letter">A</span>
+        <span class="breakdown-val" id="bv-a">—</span>
+      </div>
+      <div class="breakdown-item">
+        <span class="breakdown-letter">P</span>
+        <span class="breakdown-val" id="bv-p">—</span>
+      </div>
+      <div class="breakdown-item">
+        <span class="breakdown-letter">G</span>
+        <span class="breakdown-val" id="bv-g">—</span>
+      </div>
+      <div class="breakdown-item">
+        <span class="breakdown-letter">A</span>
+        <span class="breakdown-val" id="bv-ac">—</span>
+      </div>
+      <div class="breakdown-item">
+        <span class="breakdown-letter">R</span>
+        <span class="breakdown-val" id="bv-r">—</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend-section">
+    <div class="legend-title">เกณฑ์การแปลผล</div>
+    <div class="legend-rows">
+      <div class="legend-row normal">
+        <div class="legend-score">7–10</div>
+        <div class="legend-text">
+          <span class="legend-label">สภาพปกติ</span>
+          <span class="legend-desc">ดูแลตามปกติ ประเมินซ้ำที่นาทีที่ 5 หากนาทีที่ 5 ยังน้อยกว่า 7 ให้ประเมินซ้ำทุก 5 นาที จนถึง 20 นาที</span>
+        </div>
+      </div>
+      <div class="legend-row warn">
+        <div class="legend-score">4–6</div>
+        <div class="legend-text">
+          <span class="legend-label">สภาพซึม ต้องเฝ้าระวัง</span>
+          <span class="legend-desc">กระตุ้นการหายใจ ให้ออกซิเจน เฝ้าระวังใกล้ชิด ประเมินซ้ำทุก 5 นาที</span>
+        </div>
+      </div>
+      <div class="legend-row danger">
+        <div class="legend-score">0–3</div>
+        <div class="legend-text">
+          <span class="legend-label">ภาวะวิกฤติ ต้องช่วยเหลือทันที</span>
+          <span class="legend-desc">ช่วยฟื้นคืนชีพ (CPR) ให้ออกซิเจน กระตุ้นการหายใจ พิจารณาส่งต่อ NICU</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reset-row">
+    <button class="btn-reset" onclick="resetAll()">↺ รีเซ็ตคะแนนทั้งหมด</button>
+  </div>
+
+</div>
+
+<div class="footer">
+  เครื่องมือนี้จัดทำเพื่อการเรียนการสอนวิชาการพยาบาลผดุงครรภ์ 1 เท่านั้น<br>
+  ไม่ใช้แทนการวินิจฉัยทางคลินิก
+</div>
+
+<script>
+const scores = { a: null, p: null, g: null, ac: null, r: null };
+let timing = 'นาทีที่ 1 หลังคลอด';
+
+function setTiming(btn, t) {
+  timing = t;
+  document.querySelectorAll('.timing-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  updateResult();
+}
+
+function select(btn, key, val) {
+  const card = document.getElementById('card-' + key);
+  card.querySelectorAll('.score-opt').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  scores[key] = val;
+  card.classList.add('scored');
+  document.getElementById('badge-' + key).textContent = val + ' คะแนน';
+  const bv = document.getElementById('bv-' + key);
+  bv.textContent = val;
+  bv.classList.add('set');
+  updateResult();
+}
+
+function updateResult() {
+  const vals = Object.values(scores);
+  const filled = vals.filter(v => v !== null);
+  const totalEl = document.getElementById('total-display');
+  const statusEl = document.getElementById('result-status');
+  const actionEl = document.getElementById('result-action');
+  const timingEl = document.getElementById('result-timing');
+
+  if (filled.length < 5) {
+    const partial = filled.length > 0 ? filled.reduce((a,b)=>a+b,0) : null;
+    totalEl.textContent = partial !== null ? partial + '…' : '—';
+    totalEl.className = 'result-score-big';
+    statusEl.className = 'result-status';
+    statusEl.textContent = filled.length === 0
+      ? 'เลือกคะแนนทุกด้านเพื่อดูผล'
+      : 'เลือกแล้ว ' + filled.length + '/5 ด้าน...';
+    actionEl.textContent = 'กดเลือกคะแนน 0–2 ในแต่ละองค์ประกอบด้านบน';
+    timingEl.textContent = '';
+    return;
+  }
+
+  const total = vals.reduce((a,b) => a+b, 0);
+  totalEl.textContent = total;
+  timingEl.textContent = timing;
+
+  if (total >= 7) {
+    totalEl.className = 'result-score-big normal';
+    statusEl.className = 'result-status normal';
+    statusEl.textContent = total === 10 ? 'สภาพดีเยี่ยม (7–10)' : 'สภาพปกติ (7–10)';
+    actionEl.textContent = 'ดูแลตามปกติ ประเมินซ้ำตามกำหนด';
+  } else if (total >= 4) {
+    totalEl.className = 'result-score-big warn';
+    statusEl.className = 'result-status warn';
+    statusEl.textContent = 'สภาพซึม ต้องเฝ้าระวัง (4–6)';
+    actionEl.textContent = 'กระตุ้นการหายใจ ให้ออกซิเจน ประเมินซ้ำทุก 5 นาที จนถึง 20 นาที';
+  } else {
+    totalEl.className = 'result-score-big danger';
+    statusEl.className = 'result-status danger';
+    statusEl.textContent = 'ภาวะวิกฤติ ต้องช่วยเหลือทันที (0–3)';
+    actionEl.textContent = 'ช่วยฟื้นคืนชีพ ให้ออกซิเจน กระตุ้นการหายใจ พิจารณาส่งต่อ NICU';
+  }
+}
+
+function resetAll() {
+  Object.keys(scores).forEach(k => scores[k] = null);
+  document.querySelectorAll('.score-opt').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.criterion-card').forEach(c => c.classList.remove('scored'));
+  document.querySelectorAll('.criterion-selected-badge').forEach(b => b.textContent = '—');
+  document.querySelectorAll('.breakdown-val').forEach(b => { b.textContent = '—'; b.classList.remove('set'); });
+  document.querySelectorAll('.timing-btn').forEach((b,i) => b.classList.toggle('active', i===0));
+  timing = 'นาทีที่ 1 หลังคลอด';
+  updateResult();
+}
+</script>
+
+
+</body></html>
