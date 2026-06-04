@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0051)file:///C:/Users/hp/Downloads/apgar_score_tool.html -->
-<html lang="th"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="th">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>apgar_score_tool</title>
-<link href="./apgar_score_tool_files/css2" rel="stylesheet">
+<title>APGAR Score — เครื่องมือประเมินทารกแรกเกิด</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -392,9 +392,9 @@
   <div class="timing-section">
     <div class="timing-label">เวลาที่ประเมิน</div>
     <div class="timing-btns">
-      <button class="timing-btn active" onclick="setTiming(this,&#39;นาทีที่ 1 หลังคลอด&#39;)">นาทีที่ 1</button>
-      <button class="timing-btn" onclick="setTiming(this,&#39;นาทีที่ 5 หลังคลอด&#39;)">นาทีที่ 5</button>
-      <button class="timing-btn" onclick="setTiming(this,&#39;นาทีที่ 10 หลังคลอด&#39;)">นาทีที่ 10</button>
+      <button class="timing-btn active" onclick="setTiming(this,'นาทีที่ 1 หลังคลอด')">นาทีที่ 1</button>
+      <button class="timing-btn" onclick="setTiming(this,'นาทีที่ 5 หลังคลอด')">นาทีที่ 5</button>
+      <button class="timing-btn" onclick="setTiming(this,'นาทีที่ 10 หลังคลอด')">นาทีที่ 10</button>
     </div>
   </div>
 
@@ -411,15 +411,15 @@
         <div class="criterion-selected-badge" id="badge-a">—</div>
       </div>
       <div class="score-options">
-        <button class="score-opt" onclick="select(this,&#39;a&#39;,0)">
+        <button class="score-opt" onclick="select(this,'a',0)">
           <span class="score-num">0</span>
           <span class="score-desc">ซีดหรือเขียวทั้งตัว</span>
         </button>
-        <button class="score-opt" onclick="select(this,&#39;a&#39;,1)">
+        <button class="score-opt" onclick="select(this,'a',1)">
           <span class="score-num">1</span>
           <span class="score-desc">ตัวชมพู มือและเท้าเขียว</span>
         </button>
-        <button class="score-opt" onclick="select(this,&#39;a&#39;,2)">
+        <button class="score-opt" onclick="select(this,'a',2)">
           <span class="score-num">2</span>
           <span class="score-desc">ชมพูสม่ำเสมอทั้งตัว</span>
         </button>
@@ -436,15 +436,15 @@
         <div class="criterion-selected-badge" id="badge-p">—</div>
       </div>
       <div class="score-options">
-        <button class="score-opt" onclick="select(this,&#39;p&#39;,0)">
+        <button class="score-opt" onclick="select(this,'p',0)">
           <span class="score-num">0</span>
           <span class="score-desc">ไม่มีชีพจร</span>
         </button>
-        <button class="score-opt" onclick="select(this,&#39;p&#39;,1)">
+        <button class="score-opt" onclick="select(this,'p',1)">
           <span class="score-num">1</span>
           <span class="score-desc">น้อยกว่า 100 ครั้ง/นาที</span>
         </button>
-        <button class="score-opt" onclick="select(this,&#39;p&#39;,2)">
+        <button class="score-opt" onclick="select(this,'p',2)">
           <span class="score-num">2</span>
           <span class="score-desc">มากกว่า 100 ครั้ง/นาที</span>
         </button>
@@ -461,15 +461,15 @@
         <div class="criterion-selected-badge" id="badge-g">—</div>
       </div>
       <div class="score-options">
-        <button class="score-opt" onclick="select(this,&#39;g&#39;,0)">
+        <button class="score-opt" onclick="select(this,'g',0)">
           <span class="score-num">0</span>
           <span class="score-desc">ไม่มีปฏิกิริยาตอบสนอง</span>
         </button>
-        <button class="score-opt" onclick="select(this,&#39;g&#39;,1)">
+        <button class="score-opt" onclick="select(this,'g',1)">
           <span class="score-num">1</span>
           <span class="score-desc">เหยเกหน้าเล็กน้อย</span>
         </button>
-        <button class="score-opt" onclick="select(this,&#39;g&#39;,2)">
+        <button class="score-opt" onclick="select(this,'g',2)">
           <span class="score-num">2</span>
           <span class="score-desc">ไอ จาม หรือร้องไห้</span>
         </button>
@@ -486,15 +486,15 @@
         <div class="criterion-selected-badge" id="badge-ac">—</div>
       </div>
       <div class="score-options">
-        <button class="score-opt" onclick="select(this,&#39;ac&#39;,0)">
+        <button class="score-opt" onclick="select(this,'ac',0)">
           <span class="score-num">0</span>
           <span class="score-desc">อ่อนปวกเปียก ไม่เคลื่อนไหว</span>
         </button>
-        <button class="score-opt" onclick="select(this,&#39;ac&#39;,1)">
+        <button class="score-opt" onclick="select(this,'ac',1)">
           <span class="score-num">1</span>
           <span class="score-desc">งอแขนขาเล็กน้อย</span>
         </button>
-        <button class="score-opt" onclick="select(this,&#39;ac&#39;,2)">
+        <button class="score-opt" onclick="select(this,'ac',2)">
           <span class="score-num">2</span>
           <span class="score-desc">เคลื่อนไหวแขนขาได้ดี</span>
         </button>
@@ -511,15 +511,15 @@
         <div class="criterion-selected-badge" id="badge-r">—</div>
       </div>
       <div class="score-options">
-        <button class="score-opt" onclick="select(this,&#39;r&#39;,0)">
+        <button class="score-opt" onclick="select(this,'r',0)">
           <span class="score-num">0</span>
           <span class="score-desc">ไม่มีการหายใจ</span>
         </button>
-        <button class="score-opt" onclick="select(this,&#39;r&#39;,1)">
+        <button class="score-opt" onclick="select(this,'r',1)">
           <span class="score-num">1</span>
           <span class="score-desc">ช้า ไม่สม่ำเสมอ</span>
         </button>
-        <button class="score-opt" onclick="select(this,&#39;r&#39;,2)">
+        <button class="score-opt" onclick="select(this,'r',2)">
           <span class="score-num">2</span>
           <span class="score-desc">สม่ำเสมอ ร้องเสียงดัง</span>
         </button>
@@ -679,6 +679,5 @@ function resetAll() {
   updateResult();
 }
 </script>
-
-
-</body></html>
+</body>
+</html>
