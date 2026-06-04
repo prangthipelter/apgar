@@ -1,2 +1,2 @@
 # apgar
-การประเมินคะแนน APGAR's score
+apgar_score_tool
